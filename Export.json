@@ -1,0 +1,614 @@
+[
+    {
+        "id": "5f991e006fb360af",
+        "type": "tab",
+        "label": "Flow 2",
+        "disabled": false,
+        "info": "",
+        "env": []
+    },
+    {
+        "id": "443d3b1018ec82c8",
+        "type": "debug",
+        "z": "5f991e006fb360af",
+        "name": "RAW msg Kochfeld",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 410,
+        "y": 260,
+        "wires": []
+    },
+    {
+        "id": "1db845693829f3b7",
+        "type": "json",
+        "z": "5f991e006fb360af",
+        "name": "",
+        "property": "payload",
+        "action": "obj",
+        "pretty": false,
+        "x": 370,
+        "y": 180,
+        "wires": [
+            [
+                "c264650a59b08a6a"
+            ]
+        ]
+    },
+    {
+        "id": "c264650a59b08a6a",
+        "type": "switch",
+        "z": "5f991e006fb360af",
+        "name": "Check Status",
+        "property": "payload.switch0.output",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "true"
+            },
+            {
+                "t": "false"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 700,
+        "y": 180,
+        "wires": [
+            [
+                "42fd81c79562ff3e"
+            ],
+            [
+                "4022d9bf39727fce"
+            ]
+        ]
+    },
+    {
+        "id": "42fd81c79562ff3e",
+        "type": "switch",
+        "z": "5f991e006fb360af",
+        "name": "",
+        "property": "LightKueche",
+        "propertyType": "flow",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "false",
+                "vt": "jsonata"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 870,
+        "y": 120,
+        "wires": [
+            [
+                "4217fa02c7fbfc09",
+                "5fb5d8271e57474d"
+            ]
+        ]
+    },
+    {
+        "id": "4217fa02c7fbfc09",
+        "type": "change",
+        "z": "5f991e006fb360af",
+        "name": "Change variable LightKochfeld",
+        "rules": [
+            {
+                "t": "set",
+                "p": "LightKueche",
+                "pt": "flow",
+                "to": "true",
+                "tot": "bool"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "on",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1090,
+        "y": 120,
+        "wires": [
+            [
+                "2d86e9dcfb1f5a30",
+                "b44807730507219d"
+            ]
+        ]
+    },
+    {
+        "id": "2d86e9dcfb1f5a30",
+        "type": "debug",
+        "z": "5f991e006fb360af",
+        "name": "Set Kueche on",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1360,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "4022d9bf39727fce",
+        "type": "switch",
+        "z": "5f991e006fb360af",
+        "name": "",
+        "property": "LightKueche",
+        "propertyType": "flow",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "true",
+                "vt": "jsonata"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 870,
+        "y": 240,
+        "wires": [
+            [
+                "c9144ef936167fd5"
+            ]
+        ]
+    },
+    {
+        "id": "c9144ef936167fd5",
+        "type": "change",
+        "z": "5f991e006fb360af",
+        "name": "Change variable LightKochfeld",
+        "rules": [
+            {
+                "t": "set",
+                "p": "LightKueche",
+                "pt": "flow",
+                "to": "false",
+                "tot": "bool"
+            },
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "off",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1090,
+        "y": 240,
+        "wires": [
+            [
+                "9be49bb4afe981bf",
+                "b44807730507219d"
+            ]
+        ]
+    },
+    {
+        "id": "9be49bb4afe981bf",
+        "type": "debug",
+        "z": "5f991e006fb360af",
+        "name": "Set Kueche off",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1360,
+        "y": 240,
+        "wires": []
+    },
+    {
+        "id": "b44807730507219d",
+        "type": "mqtt out",
+        "z": "5f991e006fb360af",
+        "name": "Kochfeld Light Status",
+        "topic": "openhab/shellies/Kueche/status/Power",
+        "qos": "1",
+        "retain": "true",
+        "respTopic": "",
+        "contentType": "",
+        "userProps": "",
+        "correl": "",
+        "expiry": "",
+        "broker": "cb72a4887f381263",
+        "x": 1380,
+        "y": 180,
+        "wires": []
+    },
+    {
+        "id": "ee68f3fac7372520",
+        "type": "shelly-gen2",
+        "z": "5f991e006fb360af",
+        "hostname": "192.168.179.14",
+        "description": "Shelly Kueche",
+        "mode": "polling",
+        "server": "",
+        "outputmode": "event",
+        "uploadretryinterval": 5000,
+        "pollinginterval": "1000",
+        "pollstatus": true,
+        "getstatusoncommand": true,
+        "devicetype": "Relay",
+        "outputs": 1,
+        "x": 160,
+        "y": 180,
+        "wires": [
+            [
+                "443d3b1018ec82c8",
+                "1db845693829f3b7",
+                "a9f8a082cd989648"
+            ]
+        ]
+    },
+    {
+        "id": "5fb5d8271e57474d",
+        "type": "debug",
+        "z": "5f991e006fb360af",
+        "name": "debug 4",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "true",
+        "targetType": "full",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1020,
+        "y": 60,
+        "wires": []
+    },
+    {
+        "id": "a9f8a082cd989648",
+        "type": "switch",
+        "z": "5f991e006fb360af",
+        "name": "",
+        "property": "LightKueche",
+        "propertyType": "flow",
+        "rules": [
+            {
+                "t": "null"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 1,
+        "x": 370,
+        "y": 120,
+        "wires": [
+            [
+                "a60e301aa46e3dcb",
+                "09714817f050849b"
+            ]
+        ]
+    },
+    {
+        "id": "a60e301aa46e3dcb",
+        "type": "debug",
+        "z": "5f991e006fb360af",
+        "name": "No flow LightKueche",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 560,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "09714817f050849b",
+        "type": "change",
+        "z": "5f991e006fb360af",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "LightKueche",
+                "pt": "flow",
+                "to": "false",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 560,
+        "y": 80,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "0ab2c5fb9aba0308",
+        "type": "debug",
+        "z": "5f991e006fb360af",
+        "name": "Get Kochfeld CMND",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 580,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "f1f7e2721bd01e26",
+        "type": "change",
+        "z": "5f991e006fb360af",
+        "name": "Turn on off Kochfeld",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"method\":\"Switch.Set\",\"parameters\":{\"id\":0}}",
+                "tot": "json"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 800,
+        "y": 340,
+        "wires": [
+            [
+                "8e2e9a6ad931d871"
+            ]
+        ]
+    },
+    {
+        "id": "3aa18d8fb0a75cb3",
+        "type": "debug",
+        "z": "5f991e006fb360af",
+        "name": "Get Shelly payload",
+        "active": false,
+        "tosidebar": true,
+        "console": false,
+        "tostatus": false,
+        "complete": "payload",
+        "targetType": "msg",
+        "statusVal": "",
+        "statusType": "auto",
+        "x": 1390,
+        "y": 440,
+        "wires": []
+    },
+    {
+        "id": "de2f119b660f5b8c",
+        "type": "mqtt in",
+        "z": "5f991e006fb360af",
+        "name": "",
+        "topic": "openhab/shellies/Kueche/cmnd/Power",
+        "qos": "2",
+        "datatype": "auto-detect",
+        "broker": "cb72a4887f381263",
+        "nl": false,
+        "rap": true,
+        "rh": 0,
+        "inputs": 0,
+        "x": 230,
+        "y": 360,
+        "wires": [
+            [
+                "0ab2c5fb9aba0308",
+                "03c4ddefa8add983"
+            ]
+        ]
+    },
+    {
+        "id": "03c4ddefa8add983",
+        "type": "switch",
+        "z": "5f991e006fb360af",
+        "name": "",
+        "property": "payload",
+        "propertyType": "msg",
+        "rules": [
+            {
+                "t": "eq",
+                "v": "on",
+                "vt": "str"
+            },
+            {
+                "t": "eq",
+                "v": "off",
+                "vt": "str"
+            }
+        ],
+        "checkall": "true",
+        "repair": false,
+        "outputs": 2,
+        "x": 550,
+        "y": 360,
+        "wires": [
+            [
+                "f1f7e2721bd01e26"
+            ],
+            [
+                "d538cdbbf1b8b105"
+            ]
+        ]
+    },
+    {
+        "id": "d538cdbbf1b8b105",
+        "type": "change",
+        "z": "5f991e006fb360af",
+        "name": "Turn on off Kochfeld",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"method\":\"Switch.Set\",\"parameters\":{\"id\":0}}",
+                "tot": "jsonata"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 800,
+        "y": 380,
+        "wires": [
+            [
+                "303b10840ed65beb"
+            ]
+        ]
+    },
+    {
+        "id": "8e2e9a6ad931d871",
+        "type": "change",
+        "z": "5f991e006fb360af",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.parameters.on",
+                "pt": "msg",
+                "to": "true",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1080,
+        "y": 340,
+        "wires": [
+            [
+                "3aa18d8fb0a75cb3",
+                "77909c863fa8e40c"
+            ]
+        ]
+    },
+    {
+        "id": "303b10840ed65beb",
+        "type": "change",
+        "z": "5f991e006fb360af",
+        "name": "",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload.parameters.on",
+                "pt": "msg",
+                "to": "false",
+                "tot": "bool"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 1080,
+        "y": 380,
+        "wires": [
+            [
+                "3aa18d8fb0a75cb3",
+                "77909c863fa8e40c"
+            ]
+        ]
+    },
+    {
+        "id": "77909c863fa8e40c",
+        "type": "shelly-gen2",
+        "z": "5f991e006fb360af",
+        "hostname": "192.168.179.14",
+        "description": "Shelly Kueche",
+        "mode": "none",
+        "server": "",
+        "outputmode": "event",
+        "uploadretryinterval": 5000,
+        "pollinginterval": "1000",
+        "pollstatus": true,
+        "getstatusoncommand": true,
+        "devicetype": "Relay",
+        "outputs": 1,
+        "x": 1380,
+        "y": 360,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "cb32f63a437861c4",
+        "type": "comment",
+        "z": "5f991e006fb360af",
+        "name": "Kueche",
+        "info": "# Kueche\nHier der Workflow für das Kueche.\nEs wird alle Sekunde der Status abgefragt und bei einer Änderung an MQTT gesendet.\n\nWird via MQTT der Status verändert, so wird das Shelly-Objekt mit dem richtigen Cmnd befeuert.",
+        "x": 130,
+        "y": 120,
+        "wires": []
+    },
+    {
+        "id": "cb72a4887f381263",
+        "type": "mqtt-broker",
+        "name": "MQTT-Broker",
+        "broker": "192.168.178.107",
+        "port": "1883",
+        "clientid": "",
+        "autoConnect": true,
+        "usetls": false,
+        "protocolVersion": "4",
+        "keepalive": "60",
+        "cleansession": true,
+        "autoUnsubscribe": true,
+        "birthTopic": "",
+        "birthQos": "0",
+        "birthRetain": "false",
+        "birthPayload": "",
+        "birthMsg": {},
+        "closeTopic": "",
+        "closeQos": "0",
+        "closeRetain": "false",
+        "closePayload": "",
+        "closeMsg": {},
+        "willTopic": "",
+        "willQos": "0",
+        "willRetain": "false",
+        "willPayload": "",
+        "willMsg": {},
+        "userProps": "",
+        "sessionExpiry": ""
+    }
+]
